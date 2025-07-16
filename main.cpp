@@ -1,30 +1,66 @@
-// Matrix of integers
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+// The Class of int Matrix.
 class Matrix
 {
 public:
-    // If the bInitWithRandom is false ask user for inputs,
-    // Otherwise initialize the matrix with random numbers
-    Matrix( int nRows, int nCols, bool bInitWithRandom = true );
+    // Public function declarations.
+    Matrix(int nRows, int nCols, bool bInitWithRandom = true);
+    Matrix(const Matrix& mtxOther);
+    ~Matrix();
 
-    // Copy Constructor should do a deep copy
-    Matrix( const Matrix& mtxOther );
+    int& At(int row, int col);
+    int At(int row, int col) const;
 
-    int& At( int row, int col );
-    // Think why we are not declaring as const the above funcition?
-    int At( int row, int col ) const;
-
-    // Get count of rows and columns
     int GetRowCount() const;
     int GetColCount() const;
 
 private:
+    // Private function declarations.
+    int row_, col_;
+    int** matrix;
+
     void initWithRandom();
     void initWithUserInput();
-    void initWithZeros();
-
-    // The variables holding the matrix info
-    // It's up to You to decide what it should be
 };
+
+// Constructor of the class. Takes rows, cols and inoitialization method.
+Matrix::Matrix( int nRows, int nCols, bool bInitWithRandom)  {
+    row_ = nRows;
+    col_ = nCols;
+
+    // Creating a dynamic matrix with given rows and cols.
+    matrix = new int*[row_];
+    for(int r = 0; r < row_; r++) {
+        matrix[r] = new int[col_];
+    }
+
+    // Checking bInitWithRandom value and calling appropriate methods.
+    if(bInitWithRandom) initWithRandom();
+    else initWithUserInput();
+}
+
+// Copy constructor of the class. Deep copy.
+Matrix::Matrix(const Matrix& mtxOther) {
+    row_ = mtxOther.row_;
+    col_ = mtxOther.col_;
+
+    for(int r = 0; r < mtxOther.row_; r++) {
+        for(int c = 0; c < mtxOther.col_; c++) {
+            matrix[r][c] = mtxOther.matrix[r][c];
+        }
+    }
+}
+
+// Destructor of the class. Deletes allocated memory.
+Matrix::~Matrix() {
+    for(int r = 0; r < row_; r++) {
+        delete[] matrix[r];
+    }
+    delete[] matrix;
+}
 
 // Utility Class to perform math operations
 class MathOperation
