@@ -1,10 +1,36 @@
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+
+
 // Matrix of integers
 class Matrix
 {
 public:
-    // If the bInitWithRandom is false ask user for inputs,
-    // Otherwise initialize the matrix with random numbers
-    Matrix( int nRows, int nCols, bool bInitWithRandom = true );
+	int row;
+	int col;
+	int** matrix;
+
+
+//ինչ անել սա	
+	for(int a =0; a<nRows; a++) delete[]matrix[a];
+	delete[] matrix;
+    
+
+// If the bInitWithRandom is false ask user for inputs,  +
+    // Otherwise initialize the matrix with random numbers   +
+	Matrix( int nRows, int nCols, bool bInitWithRandom = true )
+	{
+		row=nRows;
+		col=nCols;
+		matrix= new int*[row];
+		for(int a=0; a<row; a++) matrix[a]=new int[col];
+		if(bInitWithRandom) initWithRandom();
+		else initWithUserInput();
+	
+	}
+	
+	~Matrix(){};
 
     // Copy Constructor should do a deep copy
     Matrix( const Matrix& mtxOther );
@@ -15,6 +41,10 @@ public:
     int GetRowCount();
     int GetColCount();
 
+
+
+
+
 private:
     void initWithRandom();
     void initWithUserInput();
@@ -22,6 +52,38 @@ private:
     // The variables holding the matrix info
     // It's up to You to decide what it should be
 };
+void Matrix::initWithRandom()
+{	
+	srand(time(0));
+	for(int i=0; i<row; i++)
+	{
+		for(int j=0; j<col; j++)
+		{
+			matrix[i][j]=rand()%100;
+			std::cout<<matrix[i][j]<<' ';
+		}
+		std::cout<<std::endl;
+	}
+}	
+void Matrix::initWithUserInput()
+{	
+	for(int i=0; i<row; i++)
+	{
+		for(int j=0; j<col; j++)
+		{
+			std::cin>>matrix[i][j];
+			std::cout<<matrix[i][j]<<' ';
+		}
+		std::cout<<std::endl;
+	}
+}	
+
+
+
+
+
+
+
 
 // Utility Class to perform math operations
 class MathOperation
@@ -31,7 +93,7 @@ public:
     // a new matrix with the result of addition
     static Matrix Add( const Matrix& mtxA, const Matrix& mtxB );
     static Matrix Mult( const Matrix& mtxA, const Matrix& mtxB );
-    static Matrix Transpose( Matrix& mtxA );
+    static Matrix Transpose( Matrix& mtxA );//տ ողերի պ ա ր ու նա կությունը    սյուներ
 };
 
 class Printer
@@ -41,14 +103,20 @@ public:
 };
 
 
+
+
+
+
+
+
 int main()
 {
-    //Matrix mtxA( 11, 12 );
+    Matrix mtxA( 11, 12 );
 
-    //mtxA.at( 3, 5 ) = 13;
-    //mtxA.at( 10, 11 ) = 36;
+    mtxA.at( 3, 5 ) = 13;
+    mtxA.at( 10, 11 ) = 36;
 
-    //Matrix mtxB( 12, 11 );
+    Matrix mtxB( 12, 11 );
 
     // Should print an error and return an empty matrix,
     // as to add two matrices they should have the same row and column count
