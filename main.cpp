@@ -12,9 +12,6 @@ public:
 	int** matrix;
 
 
-//ինչ անել սա	
-	for(int a =0; a<nRows; a++) delete[]matrix[a];
-	delete[] matrix;
     
 
 // If the bInitWithRandom is false ask user for inputs,  +
@@ -29,7 +26,6 @@ public:
 		else initWithUserInput();
 	}
 	
-	~Matrix(){}; //սա  լրա ցնել 
 
     // Copy Constructor should do a deep copy +
     Matrix( const Matrix& mtxOther )
@@ -55,6 +51,10 @@ public:
 
 
 
+	~Matrix(){
+		for(int a =0; a<row; a++) delete[]matrix[a];
+		delete[] matrix;
+	}
 private:
     void initWithRandom();
     void initWithUserInput();
