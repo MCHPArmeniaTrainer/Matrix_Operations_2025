@@ -16,8 +16,8 @@ public:
     int GetColCount();
 
 private:
-    initWithRandom();
-    initWithUserInput();
+    void initWithRandom();
+    void initWithUserInput();
 
     // The variables holding the matrix info
     // It's up to You to decide what it should be
