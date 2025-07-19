@@ -27,21 +27,31 @@ public:
 		for(int a=0; a<row; a++) matrix[a]=new int[col];
 		if(bInitWithRandom) initWithRandom();
 		else initWithUserInput();
-	
 	}
 	
-	~Matrix(){};
+	~Matrix(){}; //սա  լրա ցնել 
 
-    // Copy Constructor should do a deep copy
-    Matrix( const Matrix& mtxOther );
+    // Copy Constructor should do a deep copy +
+    Matrix( const Matrix& mtxOther )
+	{
+		row=mtxOther.row;
+		col=mtxOther.col;
+		matrix = new int*[row];
+		for(int a=0; a<row ; a++) matrix[a]=new int[row];
+		for(int i=0; i<row ; i++)
+		{
+			for(int j=0; j<col; j++)
+			{
+				matrix[i][j]=mtxOther.matrix[i][j];
+			}
+		}
+	}
 
     int& At( int row, int col );
 
     // Get count of rows and columns
     int GetRowCount();
     int GetColCount();
-
-
 
 
 
@@ -54,7 +64,7 @@ private:
 };
 void Matrix::initWithRandom()
 {	
-	srand(time(0));
+	std::srand(std::time(0));
 	for(int i=0; i<row; i++)
 	{
 		for(int j=0; j<col; j++)
