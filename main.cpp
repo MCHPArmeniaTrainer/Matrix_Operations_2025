@@ -32,7 +32,7 @@ public:
     // a new matrix with the result of addition
     static Matrix Add( const Matrix& mtxA, const Matrix& mtxB );
     static Matrix Mult( const Matrix& mtxA, const Matrix& mtxB );
-    static Matrix Transpose( Matrix& mtxA );
+    static void Transpose( Matrix& mtxA );
 };
 
 class Printer
