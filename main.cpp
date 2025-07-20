@@ -18,6 +18,7 @@ public:
 private:
     void initWithRandom();
     void initWithUserInput();
+    void initWithZeros();
 
     // The variables holding the matrix info
     // It's up to You to decide what it should be
@@ -55,8 +56,7 @@ int main()
     //MathOperation::Add( mtxA, mtxB );
 
     // Should succesfully do the multiplication
-    // as to multiply two matrices the firstRowCount should be equal to secondColCount
-    // and the firstColCount should be equal to the secondColCount
+    // as to multiply two matrices the firstColCount should be equal to the secondRowCount
     //Matrix mtxMult( MathOperation::Mult( mtxA, mtxB ) );
 
     //Printer::PrintToConsole( mtxMult );
