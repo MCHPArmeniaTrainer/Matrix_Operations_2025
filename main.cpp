@@ -3,7 +3,6 @@
 #include <cstdlib>
 
 
-// Matrix of integers
 class Matrix
 {
 public:
@@ -11,8 +10,6 @@ public:
 	int col;
 	int** matrix;
 
-
-    
 
 // If the bInitWithRandom is false ask user for inputs,  +
     // Otherwise initialize the matrix with random numbers   +
@@ -33,7 +30,7 @@ public:
 		row=mtxOther.row;
 		col=mtxOther.col;
 		matrix = new int*[row];
-		for(int a=0; a<row ; a++) matrix[a]=new int[row];
+		for(int a=0; a<row ; a++) matrix[a]=new int[col];
 		for(int i=0; i<row ; i++)
 		{
 			for(int j=0; j<col; j++)
@@ -42,7 +39,7 @@ public:
 			}
 		}
 	}
-
+// դրսից տ ա րր փ ոխ ել +
     int& At( int row, int col );
 
     // Get count of rows and columns
@@ -62,6 +59,14 @@ private:
     // The variables holding the matrix info
     // It's up to You to decide what it should be
 };
+
+
+int& Matrix::At( int row, int col )
+{
+	return matrix[row][col];
+
+}
+
 void Matrix::initWithRandom()
 {	
 	std::srand(std::time(0));
