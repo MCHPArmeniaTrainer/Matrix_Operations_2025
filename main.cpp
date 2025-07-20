@@ -10,10 +10,12 @@ public:
     Matrix( const Matrix& mtxOther );
 
     int& At( int row, int col );
+    // Think why we are not declaring as const the above funcition?
+    int At( int row, int col ) const;
 
     // Get count of rows and columns
-    int GetRowCount();
-    int GetColCount();
+    int GetRowCount() const;
+    int GetColCount() const;
 
 private:
     void initWithRandom();
