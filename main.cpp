@@ -25,26 +25,42 @@ public:
     // Copy Constructor should do a deep copy
     Matrix( const Matrix& mtxOther ) : m_nRows(mtxOther.m_nRows),m_nCols(mtxOther.m_nCols),m_vMatrix(mtxOther.m_vMatrix) {}
 
-    int& At( int row, int col );
+    int& At( int row, int col )
+	{
+		return m_vMatrix[row][col];
+	}
     // Think why we are not declaring as const the above funcition?
-    int At( int row, int col ) const;
+    int At( int row, int col ) const
+	{
+		return m_vMatrix[row][col];
+	}
 
     // Get count of rows and columns
-    int GetRowCount() const;
-    int GetColCount() const;
+    int GetRowCount() const
+	{
+		return m_nRows;
+	}
+
+    int GetColCount() const
+	{
+		return m_nCols;
+	}
 
 private:
     
 	
 	void initWithRandom(){
+		    m_vMatrix.resize(m_nRows, std::vector<int>(m_nCols));
 		std::srand(time(0));
 		for(int i = 0;i<m_nRows;++i){
-			for(int j = 0;j < m_nCols;++i){
+			for(int j = 0;j < m_nCols;++j){
 				m_vMatrix[i][j] = rand()%100;	
 			}
 		}	
-	}
+	
+}
     void initWithUserInput(){
+	    m_vMatrix.resize(m_nRows, std::vector<int>(m_nCols));
 		int element = 0;	
 		for(int i = 0;i<m_nRows;++i){
 			for(int j = 0;j < m_nCols;++i){
@@ -73,14 +89,24 @@ public:
 class Printer
 {
 public:
-    static void PrintToConsole( const Matrix& mtxA );
+    static void PrintToConsole( const Matrix& mtxA ){
+		for(int i = 0;i < mtxA.GetRowCount();i++){
+			for(int j = 0;j < mtxA.GetColCount();++j){
+				std::cout<<mtxA.m_vMatrix[i][j]<<"  ";
+			}
+			std::cout<<std::endl;
+	}
+	}
 };
 
 
 int main()
 {
-
+	Matrix matrix(3,3);
+	Printer::PrintToConsole(matrix);
+	std::cout<<matrix.At(0,1);
 	//Matrix mtxA( 11, 12 );
+
 
     //mtxA.at( 3, 5 ) = 13;
     //mtxA.at( 10, 11 ) = 36;
