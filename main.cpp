@@ -1,6 +1,8 @@
 // Matrix of integers
 #include <iostream>
 #include <vector>
+#include <ctime>
+#include <cstdlib>
 class Matrix
 {
 public:
@@ -32,8 +34,25 @@ public:
     int GetColCount() const;
 
 private:
-    void initWithRandom(){}
-    void initWithUserInput(){}
+    
+	
+	void initWithRandom(){
+		std::srand(time(0));
+		for(int i = 0;i<m_nRows;++i){
+			for(int j = 0;j < m_nCols;++i){
+				m_vMatrix[i][j] = rand()%100;	
+			}
+		}	
+	}
+    void initWithUserInput(){
+		int element = 0;	
+		for(int i = 0;i<m_nRows;++i){
+			for(int j = 0;j < m_nCols;++i){
+			std::cin>>element;
+				m_vMatrix[i][j] = element;	
+			}
+		}	
+	}
     void initWithZeros();
 
     // The variables holding the matrix info
