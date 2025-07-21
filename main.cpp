@@ -1,13 +1,27 @@
 // Matrix of integers
+#include <iostream>
+#include <vector>
 class Matrix
 {
 public:
+	std::vector<std::vector<int>> m_vMatrix;
+	int m_nRows;
+	int m_nCols;
+	
     // If the bInitWithRandom is false ask user for inputs,
     // Otherwise initialize the matrix with random numbers
-    Matrix( int nRows, int nCols, bool bInitWithRandom = true );
-
+    Matrix( int nRows, int nCols, bool bInitWithRandom = true ) : m_nRows(nRows),m_nCols(nCols){
+	
+		if(bInitWithRandom){
+			initWithRandom();
+		}
+		else{
+			initWithUserInput();
+		}
+	}
+ 	
     // Copy Constructor should do a deep copy
-    Matrix( const Matrix& mtxOther );
+    Matrix( const Matrix& mtxOther ) : m_nRows(mtxOther.m_nRows),m_nCols(mtxOther.m_nCols),m_vMatrix(mtxOther.m_vMatrix) {}
 
     int& At( int row, int col );
     // Think why we are not declaring as const the above funcition?
@@ -18,8 +32,8 @@ public:
     int GetColCount() const;
 
 private:
-    void initWithRandom();
-    void initWithUserInput();
+    void initWithRandom(){}
+    void initWithUserInput(){}
     void initWithZeros();
 
     // The variables holding the matrix info
@@ -46,7 +60,8 @@ public:
 
 int main()
 {
-    //Matrix mtxA( 11, 12 );
+
+	//Matrix mtxA( 11, 12 );
 
     //mtxA.at( 3, 5 ) = 13;
     //mtxA.at( 10, 11 ) = 36;
