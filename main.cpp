@@ -1,6 +1,7 @@
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
+#include <cassert>
 class Matrix
 {
 private:
@@ -42,21 +43,12 @@ public:
 	}
 	int& At( int row, int col )
 	{
-	static int test =-1;
-		if (row>=m_row || col>=m_col)
-		{
-			std::cout<<"error , out of range"<<std::endl;
-			return test ;
-		}
+		assert(row<m_row && col <m_col);
 		return m_matrix[row][col];
 	}
 	int At( int row, int col ) const
 	{	
-		if(row>=m_row || col>=m_col)
-		{
-			std::cout<<"error, out of range"<<std::endl;
-			return -1;
-		}
+		assert(row<m_row && col <m_col);
 		return m_matrix[row][col];
 	}
 
@@ -69,7 +61,6 @@ public:
 	}
 
 };
-
 
 // Utility Class to perform math operations
 class MathOperation
@@ -196,12 +187,12 @@ int main()
     // Should succesfully do the multiplication
     // as to multiply two matrices the firstRowCount should be equal to secondColCount
     // and the firstColCount should be equal to the secondColCount
-//    Matrix mtxMult( MathOperation::Mult( mtxA, mtxB ) );
-
+    Matrix mtxMult( MathOperation::Mult( mtxA, mtxB ) );
+//    MathOperation::Transpose( mtxA );
   //  Printer::PrintToConsole( mtxMult );
 
     // The matrix A should become from 11 x 12 to 12 x 11
-    MathOperation::Transpose( mtxA );
+//    MathOperation::Transpose( mtxA );
 
     // The addition is now possible as both matrixes have the same 12 x 11 size
   //  Printer::PrintToConsole( MathOperation::Add( mtxA, mtxB ) );
