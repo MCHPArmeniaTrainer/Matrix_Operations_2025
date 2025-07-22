@@ -4,35 +4,35 @@
 #include <cassert>
 class Matrix{
 	private:
-		int m_row;
-		int m_col;
+		int m_irow;
+		int m_icol;
 		int** m_matrix;
 		void initWithRandom();
 		void initWithUserInput();
 	public:
 		Matrix( int nRows, int nCols, bool bInitWithRandom = true )
 		{
-			m_row=nRows;
-			m_col=nCols;
-			if(m_row==0 || m_col==0)
+			m_irow=nRows;
+			m_icol=nCols;
+			if(m_irow==0 || m_icol==0)
 			{
 				m_matrix=nullptr;	
 			}else{
-				m_matrix= new int*[m_row];
-				for(int a=0; a<m_row; a++) m_matrix[a]=new int[m_col];
+				m_matrix= new int*[m_irow];
+				for(int a=0; a<m_irow; a++) m_matrix[a]=new int[m_icol];
 				if(bInitWithRandom) initWithRandom();
 				else initWithUserInput();
 			}
 		}
 		Matrix( const Matrix& mtxOther )
 		{
-			m_row=mtxOther.m_row;
-			m_col=mtxOther.m_col;
-			m_matrix = new int*[m_row];
-			for(int a=0; a<m_row ; a++) m_matrix[a]=new int[m_col];
-			for(int i=0; i<m_row ; i++)
+			m_irow=mtxOther.m_irow;
+			m_icol=mtxOther.m_icol;
+			m_matrix = new int*[m_irow];
+			for(int a=0; a<m_irow ; a++) m_matrix[a]=new int[m_icol];
+			for(int i=0; i<m_irow ; i++)
 			{
-				for(int j=0; j<m_col; j++)
+				for(int j=0; j<m_icol; j++)
 				{
 					m_matrix[i][j]=mtxOther.m_matrix[i][j];
 				}
@@ -41,11 +41,11 @@ class Matrix{
 		int& At( int row, int col );
 		int At( int row, int col ) const;
 
-		int GetRowCount()const{return m_row;}
-		int GetColCount()const{return m_col;}
+		int GetRowCount()const{return m_irow;}
+		int GetColCount()const{return m_icol;}
 
 		~Matrix(){
-			for(int a =0; a<m_row; a++) delete[]m_matrix[a];
+			for(int a =0; a<m_irow; a++) delete[]m_matrix[a];
 			delete[] m_matrix;
 		}
 };
@@ -62,9 +62,9 @@ class Printer{
 void Matrix::initWithRandom()
 {	
 //	std::srand(std::time(0));
-	for(int i=0; i<m_row; i++)
+	for(int i=0; i<m_irow; i++)
 	{
-		for(int j=0; j<m_col; j++)
+		for(int j=0; j<m_icol; j++)
 		{
 			m_matrix[i][j]=rand()%10;
 		}
@@ -72,9 +72,9 @@ void Matrix::initWithRandom()
 }	
 void Matrix::initWithUserInput()
 {	
-	for(int i=0; i<m_row; i++)
+	for(int i=0; i<m_irow; i++)
 	{
-		for(int j=0; j<m_col; j++)
+		for(int j=0; j<m_icol; j++)
 		{
 			std::cin>>m_matrix[i][j];
 		}
@@ -83,12 +83,12 @@ void Matrix::initWithUserInput()
 
 int& Matrix::At( int row, int col )
 {
-	assert(row<m_row && col <m_col);
+	assert(row<m_irow && col <m_icol);
 	return m_matrix[row][col];
 }
 int Matrix::At( int row, int col ) const
 {	
-	assert(row<m_row && col <m_col);
+	assert(row<m_irow && col <m_icol);
 	return m_matrix[row][col];
 }
 Matrix MathOperation::Add(const Matrix& mtxA, const Matrix& mtxB)
@@ -165,17 +165,24 @@ void Printer::PrintToConsole(const Matrix& mtxA)
 int main()
 {
 	std::srand(std::time(0));
-	Matrix mtxA( 11, 12 );
-	mtxA.At( 3, 5 ) = 13;
-	mtxA.At( 10, 11 ) = 36;
-	Printer::PrintToConsole(mtxA);
+	int row_a, col_a;
+	std::cout<<"Enter row and col for mtxA"<<std::endl;
+	std::cin>>row_a>> col_a;
+	Matrix mtxA( row_a, col_a );
+	//mtxA.At( 3, 5 ) = 13;
+	//mtxA.At( 10, 11 ) = 36;
 
-	Matrix mtxB(11,12 );
+	int row_b, col_b;
+	std::cout<<"Enter row and col for mtxB"<<std::endl;
+	std::cin>>row_b>> col_b;
+	Matrix mtxB( row_b, col_b);
+
+	Printer::PrintToConsole(mtxA);
 	Printer::PrintToConsole(mtxB);
 
-	//Printer::PrintToConsole(MathOperation::Add( mtxA, mtxB ));
+//	MathOperation::Add( mtxA, mtxB );
 	
-	Matrix mtxMult( MathOperation::Mult( mtxA, mtxB ) );
+//	Matrix mtxMult( MathOperation::Mult( mtxA, mtxB ) );
 	//Printer::PrintToConsole( mtxMult );
 
 	//MathOperation::Transpose( mtxA );
