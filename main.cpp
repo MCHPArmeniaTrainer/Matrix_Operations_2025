@@ -81,10 +81,60 @@ class MathOperation
 public:
     // Takes two matrices as an arguments, adds them and initializes
     // a new matrix with the result of addition
-    static Matrix Add( const Matrix& mtxA, const Matrix& mtxB );
-    static Matrix Mult( const Matrix& mtxA, const Matrix& mtxB );
-    static void Transpose( Matrix& mtxA );
-};
+    static Matrix Add( const Matrix& mtxA, const Matrix& mtxB ){
+        int mRows = mtxA.GetRowCount();
+        int mCols = mtxA.GetColCount();
+
+        if (mRows != mtxB.GetRowCount() || mCols != mtxB.GetColCount()){
+            std::cout << "The matrices must have the same cols or rows"<< std::endl;
+            Matrix zeroMatrix(mRows, mCols);
+            return zeroMatrix;
+            exit(1);
+        }
+
+        Matrix result(mRows, mCols);
+        for(int i = 0; i < mRows; i++){
+            for (int j = 0; j < mCols; j++){
+                result.At(i, j) = mtxA.At(i, j) + mtxB.At(i, j);
+            }
+        }
+        return result;
+    };
+
+    static Matrix Mult( const Matrix& mtxA, const Matrix& mtxB ){
+        int mRows = mtxA.GetRowCount();
+        int mCols = mtxA.GetColCount();
+
+        if (mRows != mtxB.GetRowCount() || mCols != mtxB.GetColCount()){
+            std::cout << "The matrices must have the same cols or rows"<< std::endl;
+            Matrix zeroMatrix(mRows, mCols);
+            return zeroMatrix;
+            exit(1);
+        }
+
+        Matrix result(mRows, mCols);
+        for(int i = 0; i < mRows; i++){
+            for (int j = 0; j < mCols; j++){
+                result.At(i, j) = mtxA.At(i, j) * mtxB.At(i, j);
+            }
+        }
+        return result;
+    };
+
+    static Matrix Transpose( Matrix& mtxA ){
+        int mRows = mtxA.GetRowCount();
+        int mCols = mtxA.GetColCount();
+
+        Matrix result(mCols, mRows);
+        for(int i = 0; i < mRows; i++){
+            for (int j = 0; j < mCols; j++){
+                result.At(i, j) = mtxA.At(j, i);
+            }
+        }
+        return result;
+        }
+    };
+
 
 class Printer
 {
