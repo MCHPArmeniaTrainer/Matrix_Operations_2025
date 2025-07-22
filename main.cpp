@@ -139,9 +139,20 @@ public:
 class Printer
 {
 public:
-    static void PrintToConsole( const Matrix& mtxA );
-};
+    static void PrintToConsole( const Matrix& mtxA ){
+        int mRows = mtxA.GetRowCount();
+        int mCols = mtxA.GetColCount();
 
+
+        for (int i = 0; i < mRows; i++) {
+            for (int j = 0; j < mCols; j++) {
+                std::cout << mtxA.At(i, j) << "\t"; 
+            }
+            std::cout << "\n";
+        }
+    };
+    
+};
 
 int main()
 {
