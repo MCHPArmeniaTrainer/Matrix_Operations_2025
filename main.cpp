@@ -26,13 +26,29 @@ public:
     Matrix( const Matrix& mtxOther ) : m_nRows(mtxOther.m_nRows),m_nCols(mtxOther.m_nCols),m_vMatrix(mtxOther.m_vMatrix) {}
 
     int& At( int row, int col )
-	{
-		return m_vMatrix[row][col];
+	{  if(row > m_nRows || col > m_nCols ){
+			std::cout<<"Wrong index!";	
+			return m_vMatrix[0][0];
+		}
+		else{
+					
+			return m_vMatrix[row][col];
+		}
 	}
+
+
+
     // Think why we are not declaring as const the above funcition?
     int At( int row, int col ) const
-	{
-		return m_vMatrix[row][col];
+	{ 
+	  if(row > m_nRows || col > m_nCols ){
+			
+			std::cout<<"Wrong index!";	
+			return m_vMatrix[0][0];
+		}
+		else{
+			return m_vMatrix[row][col];
+		}
 	}
 
     // Get count of rows and columns
@@ -81,9 +97,57 @@ class MathOperation
 public:
     // Takes two matrices as an arguments, adds them and initializes
     // a new matrix with the result of addition
-    static Matrix Add( const Matrix& mtxA, const Matrix& mtxB );
-    static Matrix Mult( const Matrix& mtxA, const Matrix& mtxB );
-    static void Transpose( Matrix& mtxA );
+    static Matrix Add( const Matrix& mtxA, const Matrix& mtxB )
+	{
+		Matrix mtxC(mtxA);
+
+		if(mtxA.m_nRows == mtxB.m_nRows && mtxA.m_nCols == mtxB.m_nCols)
+		{
+	    	
+			for(int i = 0;i < mtxA.GetColCount();i++){
+				for(int j = 0;j < mtxA.GetColCount();++j){
+				    for(int k = 0;k < mtxA.GetRowCount();++k){
+						mtxC.At(i,j) += mtxA.At(i,k) * mtxB.At(k,j);	
+					}
+				}
+			}
+			return mtxC;
+		}
+		else{
+			std::cout<<"rows and cols don't match \n";
+			return mtxC;
+		}
+		
+	}
+    static Matrix Mult( const Matrix& mtxA, const Matrix& mtxB )
+	{
+		Matrix mtxC(mtxA);
+		if(mtxA.m_nCols == mtxB.m_nRows)
+		{   
+			
+		for(int i = 0;i < mtxA.m_nRows;++i){
+			for(int j = 0;i < mtxA.m_nCols;++j){
+					mtxC.At(i,j) += mtxA.At(i,j) * mtxB.At(j,i);
+			}
+		}
+			return mtxC;
+		}
+		else
+		{   std::cout<<"Condition for mult two matrix is false";
+			return mtxC;
+		} 
+	}
+    static void Transpose( Matrix& mtxA ){
+		
+		Matrix mtxC(mtxA);
+		for(int i = 0;i < mtxA.m_nRows;++i){
+			for(int j = 0;j < mtxA.m_nCols;++j){
+					mtxC.At(i,j) = mtxA.At(j,i);
+			}
+		
+		}
+		mtxA = mtxC;
+	}
 };
 
 class Printer
@@ -104,7 +168,12 @@ int main()
 {
 	Matrix matrix(3,3);
 	Printer::PrintToConsole(matrix);
-	std::cout<<matrix.At(0,1);
+	MathOperation::Transpose(matrix);
+	Printer::PrintToConsole(matrix);
+	/*Matrix matrixB(3,4);
+	Printer::PrintToConsole(matrixB);
+	Printer::PrintToConsole(MathOperation::Add(matrix,matrixB));
+	*/	
 	//Matrix mtxA( 11, 12 );
 
 
