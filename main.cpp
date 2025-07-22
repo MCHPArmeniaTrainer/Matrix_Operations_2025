@@ -1,30 +1,79 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <vector>
+
 // Matrix of integers
 class Matrix
 {
 public:
     // If the bInitWithRandom is false ask user for inputs,
     // Otherwise initialize the matrix with random numbers
-    Matrix( int nRows, int nCols, bool bInitWithRandom = true );
+Matrix(int nRows, int nCols, bool bInitWithRandom = true)
+    : nRows(nRows), nCols(nCols)
+{
+    elements.resize(nRows, std::vector<int>(nCols));
+
+    if (bInitWithRandom= true) {
+        initWithRandom();
+    } else {
+        initWithUserInput();
+    }
+};
 
     // Copy Constructor should do a deep copy
-    Matrix( const Matrix& mtxOther );
+    Matrix( const Matrix& mtxOther )
+    : nRows(mtxOther.nRows), nCols(mtxOther.nCols), elements(mtxOther.elements){};
 
-    int& At( int row, int col );
+    int& At( int row, int col ){
+        return elements[row][col];
+    };
     // Think why we are not declaring as const the above funcition?
-    int At( int row, int col ) const;
+    int At( int row, int col ) const{
+        return elements[row][col];
+    };
 
     // Get count of rows and columns
-    int GetRowCount() const;
-    int GetColCount() const;
+    int GetRowCount() const{
+        return nRows;
+    };
+    int GetColCount() const{
+        return nCols;
+    };
 
 private:
-    void initWithRandom();
-    void initWithUserInput();
-    void initWithZeros();
+    int nRows;
+    int nCols;
+    std::vector<std::vector<int>> elements;
+
+
+    void initWithRandom(){
+    for (int i = 0; i < nRows; ++i)
+        for (int j = 0; j < nCols; ++j)
+            elements[i][j] = rand() % 10 + 1;
+    }
+
+        void initWithUserInput(){
+            for (int i = 0; i < nRows; ++i){
+                for (int j = 0; j < nCols; ++j){
+                    std::cout << "Enter element [" << i << "][" << j << "]: ";
+                    std::cin >> elements[i][j];
+                }
+            };
+            
+    };
+
+    void initWithZeros(){
+            for (int i = 0; i < nRows; ++i){
+                for (int j = 0; j < nCols; ++j){
+                    elements[i][j] = 0;
+                }
+            };
+    };
+};
 
     // The variables holding the matrix info
     // It's up to You to decide what it should be
-};
 
 // Utility Class to perform math operations
 class MathOperation
