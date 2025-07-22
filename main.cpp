@@ -5,11 +5,11 @@
 #include <cstdlib>
 class Matrix
 {
-public:
+private:
 	std::vector<std::vector<int>> m_vMatrix;
 	int m_nRows;
 	int m_nCols;
-	
+public:	
     // If the bInitWithRandom is false ask user for inputs,
     // Otherwise initialize the matrix with random numbers
     Matrix( int nRows, int nCols, bool bInitWithRandom = true ) : m_nRows(nRows),m_nCols(nCols){
@@ -26,7 +26,7 @@ public:
     Matrix( const Matrix& mtxOther ) : m_nRows(mtxOther.m_nRows),m_nCols(mtxOther.m_nCols),m_vMatrix(mtxOther.m_vMatrix) {}
 
     int& At( int row, int col )
-	{  if(row > m_nRows || col > m_nCols ){
+	{  if(row < 0 || row > m_nRows || col > m_nCols || col < 0 ){
 			std::cout<<"Wrong index!";	
 			return m_vMatrix[0][0];
 		}
@@ -41,7 +41,7 @@ public:
     // Think why we are not declaring as const the above funcition?
     int At( int row, int col ) const
 	{ 
-	  if(row > m_nRows || col > m_nCols ){
+	  if(row < 0 || row > m_nRows || col > m_nCols || col < 0){
 			
 			std::cout<<"Wrong index!";	
 			return m_vMatrix[0][0];
@@ -79,8 +79,9 @@ private:
 	    m_vMatrix.resize(m_nRows, std::vector<int>(m_nCols));
 		int element = 0;	
 		for(int i = 0;i<m_nRows;++i){
-			for(int j = 0;j < m_nCols;++i){
+			for(int j = 0;j < m_nCols;++j){
 			std::cin>>element;
+					
 				m_vMatrix[i][j] = element;	
 			}
 		}	
@@ -101,14 +102,12 @@ public:
 	{
 		Matrix mtxC(mtxA);
 
-		if(mtxA.m_nRows == mtxB.m_nRows && mtxA.m_nCols == mtxB.m_nCols)
+		if(mtxA.GetRowCount() == mtxB.GetRowCount() && mtxA.GetColCount() == mtxB.GetColCount())
 		{
 	    	
-			for(int i = 0;i < mtxA.GetColCount();i++){
+			for(int i = 0;i < mtxA.GetRowCount();i++){
 				for(int j = 0;j < mtxA.GetColCount();++j){
-				    for(int k = 0;k < mtxA.GetRowCount();++k){
-						mtxC.At(i,j) += mtxA.At(i,k) * mtxB.At(k,j);	
-					}
+						mtxC.At(i,j) = mtxA.At(i,j) +  mtxB.At(i,j);	
 				}
 			}
 			return mtxC;
@@ -122,12 +121,15 @@ public:
     static Matrix Mult( const Matrix& mtxA, const Matrix& mtxB )
 	{
 		Matrix mtxC(mtxA);
-		if(mtxA.m_nCols == mtxB.m_nRows)
+		if(mtxA.GetColCount() == mtxB.GetRowCount())
 		{   
 			
-		for(int i = 0;i < mtxA.m_nRows;++i){
-			for(int j = 0;i < mtxA.m_nCols;++j){
-					mtxC.At(i,j) += mtxA.At(i,j) * mtxB.At(j,i);
+		for(int i = 0;i < mtxA.GetRowCount();++i){
+			for(int j = 0;j < mtxB.GetColCount();++j){
+				for(int k = 0;k < mtxA.GetColCount();++k){
+				
+					mtxC.At(i,j) += mtxA.At(i,k) * mtxB.At(k,j);
+				}
 			}
 		}
 			return mtxC;
@@ -139,9 +141,9 @@ public:
 	}
     static void Transpose( Matrix& mtxA ){
 		
-		Matrix mtxC(mtxA);
-		for(int i = 0;i < mtxA.m_nRows;++i){
-			for(int j = 0;j < mtxA.m_nCols;++j){
+		Matrix mtxC(mtxA.GetColCount(),mtxA.GetRowCount());
+		for(int i = 0;i < mtxA.GetRowCount();++i){
+			for(int j = 0;j < mtxA.GetColCount();++j){
 					mtxC.At(i,j) = mtxA.At(j,i);
 			}
 		
@@ -156,7 +158,7 @@ public:
     static void PrintToConsole( const Matrix& mtxA ){
 		for(int i = 0;i < mtxA.GetRowCount();i++){
 			for(int j = 0;j < mtxA.GetColCount();++j){
-				std::cout<<mtxA.m_vMatrix[i][j]<<"  ";
+				std::cout<<mtxA.At(i,j)<<"  ";
 			}
 			std::cout<<std::endl;
 	}
