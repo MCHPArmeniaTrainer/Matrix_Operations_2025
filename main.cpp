@@ -22,7 +22,7 @@ public:
     Matrix( const Matrix& mtxOther ) : m_nRows(mtxOther.m_nRows),m_nCols(mtxOther.m_nCols),m_vMatrix(mtxOther.m_vMatrix) {}
 
     int& At( int row, int col )
-	{  if(row < 0 || row > m_nRows || col > m_nCols || col < 0 ){
+	{  if(row < 0 || row >= m_nRows || col >= m_nCols || col < 0 ){
 			std::cout<<"Wrong index!";	
 			return m_vMatrix[0][0];
 		}
@@ -36,7 +36,7 @@ public:
 
     int At( int row, int col ) const
 	{ 
-	  if(row < 0 || row > m_nRows || col > m_nCols || col < 0){
+	  if(row < 0 || row >= m_nRows || col >= m_nCols || col < 0){
 			
 			std::cout<<"Wrong index!";	
 			return m_vMatrix[0][0];
@@ -80,7 +80,6 @@ private:
 			}
 		}	
 	}
-    void initWithZeros();
 
 };
 
@@ -107,33 +106,38 @@ public:
 		}
 		
 	}
-    static Matrix Mult( const Matrix& mtxA, const Matrix& mtxB )
-	{
-		Matrix mtxC(mtxA);
-		if(mtxA.GetColCount() == mtxB.GetRowCount())
-		{   
-			
-		for(int i = 0;i < mtxA.GetRowCount();++i){
-			for(int j = 0;j < mtxB.GetColCount();++j){
-				for(int k = 0;k < mtxA.GetColCount();++k){
-				
-					mtxC.At(i,j) += mtxA.At(i,k) * mtxB.At(k,j);
-				}
-			}
-		}
-			return mtxC;
-		}
-		else
-		{   std::cout<<"Condition for mult two matrix is false";
-			return mtxC;
-		} 
-	}
+
+
+	static Matrix Mult( const Matrix& mtxA, const Matrix& mtxB )
+{
+    if(mtxA.GetColCount() != mtxB.GetRowCount())
+    {
+        std::cout<<"Condition for mult two matrix is false";
+        return Matrix(0,0);  
+    }
+
+    Matrix mtxC(mtxA.GetRowCount(), mtxB.GetColCount());
+
+    for (int i = 0; i < mtxA.GetRowCount(); ++i) {
+        for (int j = 0; j < mtxB.GetColCount(); ++j) {
+            int sum = 0;
+            for (int k = 0; k < mtxA.GetColCount(); ++k) {
+                sum += mtxA.At(i, k) * mtxB.At(k, j);
+            }
+            mtxC.At(i, j) = sum;
+        }
+    }
+
+    return mtxC;
+}
+
+
     static void Transpose( Matrix& mtxA ){
 		
 		Matrix mtxC(mtxA.GetColCount(),mtxA.GetRowCount());
 		for(int i = 0;i < mtxA.GetRowCount();++i){
 			for(int j = 0;j < mtxA.GetColCount();++j){
-					mtxC.At(i,j) = mtxA.At(j,i);
+					mtxC.At(j,i) = mtxA.At(i,j);
 			}
 		
 		}
