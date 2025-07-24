@@ -25,7 +25,6 @@ public:
 	    	rows=mtxOther.rows;
 		cols=mtxOther.cols;
 		vMatrix=mtxOther.vMatrix;
-		std::cout<<"Copy constructory kachvec ";
     }
 
     int& At( int row, int col ){
@@ -67,8 +66,13 @@ private:
 		}
 	}
     }
-    void initWithZeros();
-
+	void initWithZeros() {
+    		for (int i = 0; i < rows; ++i){
+        		for (int j = 0; j < cols; ++j){
+            			vMatrix[i][j] = 0;
+			}
+		}
+	}
     // The variables holding the matrix info
     // It's up to You to decide what it should be
 };
@@ -109,7 +113,19 @@ public:
 	}return result;
 	
     }
-    static void Transpose( Matrix& mtxA );
+    static void Transpose( Matrix& mtxA ){
+    	int originalRows=mtxA.GetRowCount();
+	int originalCols=mtxA.GetColCount();
+
+	Matrix transposed(originalCols,originalRows,true);
+	
+	for(int i=0;i<originalCols;i++){
+		for(int j=0;j<originalRows;j++){
+			transposed.At(i,j)=mtxA.At(j,i);
+		}
+	}
+	mtxA=transposed;
+    }
 };
 
 class Printer
@@ -118,8 +134,9 @@ public:
     static void PrintToConsole( const Matrix& mtxA ){
     	for(int i=0;i<mtxA.GetRowCount();i++){
 		for(int j=0;j<mtxA.GetColCount();j++){
-			std::cout<<mtxA.At(i,j)<<" "<<std::endl;
+			std::cout<<mtxA.At(i,j)<<" ";
 		}
+		std::cout<<std::endl;
 	}std::cout<<std::endl;
     
     }
