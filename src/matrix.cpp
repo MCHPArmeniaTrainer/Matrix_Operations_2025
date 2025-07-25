@@ -2,11 +2,11 @@
 #include <iostream>
 #include <cstdlib>
 
-Matrix::Matrix(int nRows, int nCols, bool bInitWithRandom)
+Matrix::Matrix(int nRows, int nCols, bool bInitWithRandom=true)
     : nRows(nRows), nCols(nCols)
 {
     elements.resize(nRows, std::vector<int>(nCols));
-    if (bInitWithRandom)
+    if (bInitWithRandom==true)
         initWithRandom();
     else
         initWithUserInput();
