@@ -22,12 +22,14 @@ int main()
 	Printer::PrintToConsole(mtxB);
 
 //	MathOperation::Add( mtxA, mtxB );
-	
+	std::cout<<"Matrix multiplication"<<std::endl;	
 	Matrix mtxMult( MathOperation::Mult( mtxA, mtxB ) );
 	Printer::PrintToConsole( mtxMult );
 
+	std::cout<<"Matrix Transpose"<<std::endl;	
 	Printer::PrintToConsole(MathOperation::Transpose( mtxA ));
 
+	std::cout<<"Matrix add"<<std::endl;	
   	Printer::PrintToConsole( MathOperation::Add( mtxA, mtxB ) );
     return 0;
 }
