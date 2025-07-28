@@ -15,23 +15,10 @@ This project implements a `Matrix` class and a set of matrix operations in C++.
 Matrix_Operations_2025/  
 ├── bin/ # Compiled executable  
 ├── inc/ # Header files (.h)  
-├── obj/ # Object files (.o)
-  
-├── src/ # Source files (.cpp)  
-├── Makefile # Build automation  
-└── README.md # Project info  
-
-```
-
-Matrix_Operations_2025/  
-├── bin/ # Compiled executable  
-├── inc/ # Header files (.h)  
 ├── obj/ # Object files (.o)  
 ├── src/ # Source files (.cpp)  
 ├── Makefile # Build automation  
 └── README.md # Project info  
-
-```
 
 ## Build Instructions
 
@@ -39,7 +26,7 @@ To build the project, run:
 
 ```bash
 make
-exit
+```
 
 This will compile all source files and generate the executable in the `bin/` directory.
 
@@ -49,14 +36,14 @@ To remove compiled object files and the executable, run:
 
 ```bash
 make clean
-exit
+```
 
 ### Running the program
 After building, run the executable:
 
 ```bash
 ./bin/main
-exit
+```
 
 ## Requirements
 
