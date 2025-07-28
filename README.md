@@ -30,7 +30,7 @@ make
 
 This will compile all source files and generate the executable in the `bin/` directory.
 
-Cleaning the build
+### Cleaning the build
 
 To remove compiled object files and the executable, run:
 
@@ -38,7 +38,7 @@ To remove compiled object files and the executable, run:
 make clean
 ```
 
-### Running the program
+#### Running the program
 After building, run the executable:
 
 ```bash
@@ -51,5 +51,5 @@ After building, run the executable:
 - `make` utility should be available.
 
 # Contact
-For any questions or issues, please contact `Gerasim` at [gerasim.alaverdyan@gmail.com].
+For any questions or issues, please contact [Gerasim] at [gerasim.alaverdyan@gmail.com].
 
