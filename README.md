@@ -13,12 +13,12 @@ This project implements a `Matrix` class and a set of matrix operations in C++.
 ## Project Structure
 
 Matrix_Operations_2025/  
-├── bin/ # Compiled executable  
-├── inc/ # Header files (.h)  
-├── obj/ # Object files (.o)  
-├── src/ # Source files (.cpp)  
-├── Makefile # Build automation  
-└── README.md # Project info  
+├── `bin/`         # Compiled executable  
+├── `inc/`         # Header files (.h)  
+├── `obj/`         # Object files (.o)  
+├── `src/`         # Source files (.cpp)  
+├── Makefile     # Build automation  
+└── README.md    # Project info  
 
 ## Build Instructions
 
@@ -38,7 +38,7 @@ To remove compiled object files and the executable, run:
 make clean
 ```
 
-#### Running the program
+### Running the program
 After building, run the executable:
 
 ```bash
@@ -47,9 +47,9 @@ After building, run the executable:
 
 ## Requirements
 
-- `Make` sure you have g++ installed (supports C++17).
+- Make sure you have `g++` installed (supports C++17).
 - `make` utility should be available.
 
 # Contact
-For any questions or issues, please contact [Gerasim] at [gerasim.alaverdyan@gmail.com].
+For any questions or issues, please contact `Gerasim` at [gerasim.alaverdyan@gmail.com].
 
