@@ -13,10 +13,10 @@ This project implements a `Matrix` class and a set of matrix operations in C++.
 ## Project Structure
 
 Matrix_Operations_2025/  
-├── `bin/`         # Compiled executable  
-├── `inc/`         # Header files (.h)  
-├── `obj/`         # Object files (.o)  
-├── `src/`         # Source files (.cpp)  
+├── `bin/`	 # Compiled executable  
+├── `inc/`       # Header files (.h)  
+├── `obj/`       # Object files (.o)  
+├── `src/`       # Source files (.cpp)  
 ├── Makefile     # Build automation  
 └── README.md    # Project info  
 
